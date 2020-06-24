@@ -12,6 +12,11 @@ namespace ThrowIf
         {
             return value == Guid.Empty;
         }
+        
+        public static bool IsEmpty(this Guid? value)
+        {
+            return value == Guid.Empty;
+        }
 
         public static bool IsEmpty(this string value)
         {

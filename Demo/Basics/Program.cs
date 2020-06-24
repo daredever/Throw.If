@@ -1,5 +1,6 @@
 ﻿using System;
 using ThrowIf;
+using static ThrowIf.MessageTemplates;
 
 namespace Basics
 {
@@ -17,30 +18,23 @@ namespace Basics
         {
             try
             {
-                Throw<ArgumentExceptionFactory>
-                    .If(
-                        condition: false,
-                        message: "message0")
-                    .If(
-                        condition: guid.IsNull(),
-                        message: "message1")
-                    .If(
-                        condition: message.IsNull(),
-                        name: nameof(ArgumentNullExceptionFactory),
-                        messageTemplate: MessageTemplates.CanNotBeNull)
-                    .If(
-                        conditionGroup: StringConditionGroup.Instance,
-                        value: message)
-                    .If(
-                        condition: message.IsEmpty(),
-                        name: nameof(message),
-                        messageTemplate: MessageTemplates.CanNotBeEmpty);
+                Throw<ArgumentNullExceptionFactory>
+                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
+                    .If(condition: message.IsNull(), name: nameof(message), messageTemplate: CanNotBeNull);
+
+                Throw<ValidationExceptionFactory>
+                    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: CanNotBeEmpty)
+                    .If(condition: message.IsEmpty(), name: nameof(message), messageTemplate: CanNotBeEmpty)
+                    .If(message.Length > 10, $"{nameof(message.Length)} is not valid");
+
+                Throw<CustomException>
+                    .If(conditionGroup: MessageValidator.Instance, value: message);
 
                 PrintMessage(message);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Test: {nameof(ArgumentExceptionFactory)}");
+                Console.WriteLine("Test:");
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e);
             }
