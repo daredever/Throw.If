@@ -14,13 +14,17 @@ namespace Basics
         {
             try
             {
-                Throw<ArgumentNullExceptionFactory>
-                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
+                Throw.Exception(message => new ArgumentNullException(string.Empty, message))
+                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull);
+
+                Throw.Exception(ExceptionFactories.ArgumentNullException)
                     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull);
 
-                Throw<ValidationExceptionFactory>
+                Throw.Exception<ValidationExceptionFactory>()
                     .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
-                    .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA)
+                    .If(condition: text.StartsWith('A'), name: nameof(guid), messageTemplate: CanNotStartWithCharA);
+
+                Throw.Exception(new ValidationExceptionFactory())
                     .If(condition: text.IsEmpty(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeEmpty)
                     .If(condition: text.Length > 10, message: $"{nameof(text.Length)} is not valid")
                     .If(condition: text.Length < 100, messageTemplate: () => $"{nameof(text.Length)} is not valid");
@@ -35,7 +39,7 @@ namespace Basics
             }
         }
 
-        private static readonly Func<string, string> CanNotStartsWithCharA =
+        private static readonly Func<string, string> CanNotStartWithCharA =
             name => $"{name} can not start with char 'A'";
 
         private static void PrintMessage(string message)

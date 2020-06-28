@@ -12,7 +12,7 @@ namespace ThrowIf.Tests
             // Arrange
             var message = "message";
             Action action = () =>
-                Throw<ArgumentExceptionFactory>
+                Throw.Exception<ArgumentExceptionFactory>()
                     .If(true, message);
 
             // Act + Assert
@@ -26,7 +26,7 @@ namespace ThrowIf.Tests
             // Arrange
             var message = "message";
             Action action = () =>
-                Throw<ArgumentExceptionFactory>
+                Throw.Exception<ArgumentExceptionFactory>()
                     .If(false, string.Empty)
                     .If(true, message);
 
@@ -41,7 +41,7 @@ namespace ThrowIf.Tests
             // Arrange
             var message = "message";
             Action action = () =>
-                Throw<ArgumentExceptionFactory>
+                Throw.Exception<ArgumentExceptionFactory>()
                     .If(true, () => message);
 
             // Act + Assert
@@ -55,7 +55,7 @@ namespace ThrowIf.Tests
             // Arrange
             var message = "message";
             Action action = () =>
-                Throw<ArgumentExceptionFactory>
+                Throw.Exception<ArgumentExceptionFactory>()
                     .If(false, () => string.Empty)
                     .If(true, () => message);
 

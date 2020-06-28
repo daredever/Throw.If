@@ -7,16 +7,19 @@ A high-performance validation library with support of C# 8.0 [nullable reference
 ```c#
 using ThrowIf;
 
-Throw<ArgumentNullExceptionFactory>
+Throw.Exception<ArgumentNullExceptionFactory>()
     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull);
 
-Throw<ValidationExceptionFactory>
+Throw.Exception(new ValidationExceptionFactory())
     .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
     .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA)
     .If(condition: text.IsEmpty(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeEmpty)
     .If(condition: text.Length > 10, message: $"{nameof(text.Length)} is not valid")
     .If(condition: text.Length < 100, messageTemplate: () => $"{nameof(text.Length)} is not valid");
+              
+Throw.Exception(message => new ArgumentException(message))
+    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty);
 
 private static readonly Func<string, string> CanNotStartsWithCharA =
     name => $"{name} can not start with char 'A'";
@@ -43,7 +46,7 @@ To use any other exception there is an IExceptionFactory interface:
 using ThrowIf;
 using static ThrowIf.MessageTemplates;
 
-Throw<CustomExceptionFactory>
+Throw.Exception<CustomExceptionFactory>()
     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
     .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
@@ -60,7 +63,7 @@ To reduce the amount of code there is an IConditionGroup interface:
 using ThrowIf;
 using static ThrowIf.MessageTemplates;
 
-Throw<ArgumentExceptionFactory>
+Throw.Exception<ArgumentExceptionFactory>()
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
     .If(conditionGroup: new TextValidator(), value: text);
 

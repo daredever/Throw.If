@@ -11,8 +11,8 @@ namespace Validator
         {
             context
                 .If(text.Length < 100, $"{nameof(text.Length)} can not be less than 100")
-                .If(text.StartsWith("A"), $"{nameof(text)} can not start with char 'A'")
-                .If(text.EndsWith("B"), $"{nameof(text)} can not end with char 'B'");
+                .If(text.StartsWith('A'), $"{nameof(text)} can not start with char 'A'")
+                .If(text.EndsWith('B'), $"{nameof(text)} can not end with char 'B'");
         }
     }
 }

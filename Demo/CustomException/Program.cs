@@ -15,7 +15,7 @@ namespace CustomException
         {
             try
             {
-                Throw<CustomExceptionFactory>
+                Throw.Exception<CustomExceptionFactory>()
                     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
                     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
                     .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
