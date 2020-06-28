@@ -28,7 +28,7 @@ private static readonly Func<string, string> CanNotStartsWithCharA =
 Default factories for exceptions:
 - ArgumentException
 - ArgumentNullException
-- ArgumentOutOfRangeExceptionFactory
+- ArgumentOutOfRangeException
 - ValidationException
 
 Default validators:
@@ -41,18 +41,20 @@ Default message templates:
 
 ## Extend
 
-To use any other any other exception there is an IExceptionFactory interface:
+To use any other exception there is an IExceptionFactory interface:
 
 ```c#
 using ThrowIf;
+using static ThrowIf.MessageTemplates;
 
 Throw<CustomExceptionFactory>
-    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
-    .If(condition: guid.Value.ToString().StartsWith("A"), $"{nameof(guid)} can not start with char 'A'");
+    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
+    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
+    .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
 
-public class CustomExceptionFactory : IExceptionFactory
+public sealed class CustomExceptionFactory : IExceptionFactory
 {
-    public Exception CreateInstance(string message) => return new CustomException(message);
+    public Exception CreateInstance(string message) => new CustomException(message);
 }
 ```
 
@@ -61,10 +63,10 @@ To reduce the amount of code there is an IConditionGroup<in T> interface:
 ```c#
 using ThrowIf;
 using ThrowIf.Exceptions;
+using static ThrowIf.MessageTemplates;
 
 Throw<ArgumentExceptionFactory>
-    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
-    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
+    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
     .If(conditionGroup: new TextValidator(), value: text);
 
 public sealed class TextValidator : IConditionGroup<string>

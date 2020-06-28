@@ -1,5 +1,6 @@
 ﻿using System;
 using ThrowIf;
+using static ThrowIf.MessageTemplates;
 
 namespace CustomException
 {
@@ -15,8 +16,8 @@ namespace CustomException
             try
             {
                 Throw<CustomExceptionFactory>
-                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
-                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
+                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
+                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
                     .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
 
                 PrintMessage(text);

@@ -1,6 +1,7 @@
 ﻿using System;
 using ThrowIf;
 using ThrowIf.Exceptions;
+using static ThrowIf.MessageTemplates;
 
 namespace Validator
 {
@@ -8,16 +9,15 @@ namespace Validator
     {
         static void Main(string[] args)
         {
-            Verify(text: "msg", guid: Guid.Empty);
+            Verify(text: "msg");
         }
 
-        private static void Verify(string? text, Guid? guid)
+        private static void Verify(string? text)
         {
             try
             {
                 Throw<ArgumentExceptionFactory>
-                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
-                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
+                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
                     .If(conditionGroup: new TextValidator(), value: text);
 
                 PrintMessage(text);
