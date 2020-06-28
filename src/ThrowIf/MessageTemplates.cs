@@ -2,6 +2,9 @@
 
 namespace ThrowIf
 {
+    /// <summary>
+    /// Common message templates.
+    /// </summary>
     public static class MessageTemplates
     {
         /// <summary>

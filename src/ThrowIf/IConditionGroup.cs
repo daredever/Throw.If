@@ -1,15 +1,15 @@
 ﻿namespace ThrowIf
 {
     /// <summary>
-    /// Generic condition group.
+    /// Conditions group.
     /// </summary>
     public interface IConditionGroup<in T>
     {
         /// <summary>
-        /// Checks value by conditions with Throw context.
+        /// Verifies value by conditions with <see cref="ThrowContext"/>.
         /// </summary>
         /// <param name="context">Throw context</param>
-        /// <param name="value">Value for checking</param>
-        void Check(in ThrowContext context, T value);
+        /// <param name="text">Value for verifying</param>
+        void Verify(in ThrowContext context, T text);
     }
 }

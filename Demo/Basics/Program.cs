@@ -1,6 +1,6 @@
 ﻿using System;
 using ThrowIf;
-using static ThrowIf.MessageTemplates;
+using ThrowIf.Exceptions;
 
 namespace Basics
 {
@@ -8,29 +8,25 @@ namespace Basics
     {
         static void Main(string[] args)
         {
-            var message = "msg";
-            Assert(message, Guid.Empty);
-
-            Console.WriteLine("Hello World!");
+            Verify(text: "msg", guid: Guid.Empty);
         }
 
-        private static void Assert(string? message, Guid? guid)
+        private static void Verify(string? text, Guid? guid)
         {
             try
             {
                 Throw<ArgumentNullExceptionFactory>
-                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
-                    .If(condition: message.IsNull(), name: nameof(message), messageTemplate: CanNotBeNull);
+                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
+                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull);
 
                 Throw<ValidationExceptionFactory>
-                    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: CanNotBeEmpty)
-                    .If(condition: message.IsEmpty(), name: nameof(message), messageTemplate: CanNotBeEmpty)
-                    .If(message.Length > 10, $"{nameof(message.Length)} is not valid");
+                    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
+                    .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA)
+                    .If(condition: text.IsEmpty(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeEmpty)
+                    .If(condition: text.Length > 10, message: $"{nameof(text.Length)} is not valid")
+                    .If(condition: text.Length < 100, messageTemplate: () => $"{nameof(text.Length)} is not valid");
 
-                Throw<CustomException>
-                    .If(conditionGroup: MessageValidator.Instance, value: message);
-
-                PrintMessage(message);
+                PrintMessage(text);
             }
             catch (Exception e)
             {
@@ -39,6 +35,9 @@ namespace Basics
                 Console.WriteLine(e);
             }
         }
+
+        private static readonly Func<string, string> CanNotStartsWithCharA =
+            name => $"{name} can not start with char 'A'";
 
         private static void PrintMessage(string message)
         {

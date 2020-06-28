@@ -5,6 +5,12 @@ namespace ThrowIf
 {
     public static class ThrowContextExtensions
     {
+        /// <summary>
+        /// Throw if a condition is true.
+        /// </summary>
+        /// <param name="context">Special struct for fluent interface</param>
+        /// <param name="condition">The condition</param>
+        /// <param name="message">The message used with the exception that is thrown if the condition is true</param>
         public static ref readonly ThrowContext If(in this ThrowContext context,
             [DoesNotReturnIf(true)] bool condition, string message)
         {
@@ -17,6 +23,12 @@ namespace ThrowIf
             return ref context;
         }
 
+        /// <summary>
+        /// Throw if a condition is true.
+        /// </summary>
+        /// <param name="context">Special struct for fluent interface</param>
+        /// <param name="condition">The condition</param>
+        /// <param name="messageTemplate">The message template used with the exception that is thrown if the condition is true</param>
         public static ref readonly ThrowContext If(this in ThrowContext context,
             [DoesNotReturnIf(true)] bool condition, Func<string> messageTemplate)
         {
@@ -30,6 +42,13 @@ namespace ThrowIf
             return ref context;
         }
 
+        /// <summary>
+        /// Throw if a condition is true.
+        /// </summary>
+        /// <param name="context">Special struct for fluent interface</param>
+        /// <param name="condition">The condition</param>
+        /// <param name="name">Field name used with the message template</param>
+        /// <param name="messageTemplate">The message template used with the exception that is thrown if the condition is true</param>
         public static ref readonly ThrowContext If(this in ThrowContext context,
             [DoesNotReturnIf(true)] bool condition, string name, Func<string, string> messageTemplate)
         {
@@ -43,10 +62,16 @@ namespace ThrowIf
             return ref context;
         }
 
+        /// <summary>
+        /// Throw if any condition in condition group is true.
+        /// </summary>
+        /// <param name="context">Special struct for fluent interface</param>
+        /// <param name="conditionGroup">Conditions group</param>
+        /// <param name="value">Value for verifying</param>
         public static ref readonly ThrowContext If<T>(this in ThrowContext context,
             IConditionGroup<T> conditionGroup, T value)
         {
-            conditionGroup.Check(context, value);
+            conditionGroup.Verify(context, value);
             return ref context;
         }
 
