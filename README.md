@@ -8,7 +8,6 @@ Supports C# 8.0 [nullable reference types](https://docs.microsoft.com/en-us/dotn
 
 ```c#
 using ThrowIf;
-using ThrowIf.Exceptions;
 
 Throw<ArgumentNullExceptionFactory>
     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
@@ -28,7 +27,6 @@ private static readonly Func<string, string> CanNotStartsWithCharA =
 Default factories for exceptions:
 - ArgumentException
 - ArgumentNullException
-- ArgumentOutOfRangeException
 - ValidationException
 
 Default validators:
@@ -58,11 +56,10 @@ public sealed class CustomExceptionFactory : IExceptionFactory
 }
 ```
 
-To reduce the amount of code there is an IConditionGroup<in T> interface:
+To reduce the amount of code there is an IConditionGroup interface:
 
 ```c#
 using ThrowIf;
-using ThrowIf.Exceptions;
 using static ThrowIf.MessageTemplates;
 
 Throw<ArgumentExceptionFactory>

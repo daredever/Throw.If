@@ -1,6 +1,5 @@
 ﻿using System;
 using ThrowIf;
-using ThrowIf.Exceptions;
 
 namespace Basics
 {

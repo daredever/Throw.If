@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ThrowIf.Exceptions
+namespace ThrowIf
 {
     /// <summary>
     /// <see cref="IExceptionFactory"/> for ValidationException.

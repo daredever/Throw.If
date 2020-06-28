@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ThrowIf.Exceptions
+namespace ThrowIf
 {
     /// <summary>
     /// <see cref="IExceptionFactory"/> for ArgumentException.
