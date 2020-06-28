@@ -6,7 +6,7 @@ namespace Validators.Tests
     public class IsNullValidatorTests
     {
         [Fact]
-        public void StringIsNull_Test()
+        public void String_IsNull_Test()
         {
             // Arrange
             string? str = null;
@@ -19,7 +19,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void StringIsNotNull_Test()
+        public void String_IsNotNull_Test()
         {
             // Arrange
             string? str = "string";
@@ -32,7 +32,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void IntIsNull_Test()
+        public void Int_IsNull_Test()
         {
             // Arrange
             int? value = null;
@@ -45,7 +45,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void IntIsNotNull_Test()
+        public void Int_IsNotNull_Test()
         {
             // Arrange
             int? value = 1;

@@ -8,7 +8,7 @@ namespace Validators.Tests
     public class IsEmptyValidatorTests
     {
         [Fact]
-        public void GuidIsEmpty_Test()
+        public void Guid_IsEmpty_Test()
         {
             // Arrange
             Guid guid = Guid.Empty;
@@ -21,7 +21,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void GuidIsNotEmpty_Test()
+        public void Guid_IsNotEmpty_Test()
         {
             // Arrange
             Guid guid = Guid.NewGuid();
@@ -34,7 +34,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void NullableGuidIsEmpty_Test()
+        public void NullableGuid_IsEmpty_Test()
         {
             // Arrange
             Guid? guid = Guid.Empty;
@@ -47,7 +47,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void NullableGuidIsNotEmpty_Test()
+        public void NullableGuid_IsNotEmpty_Test()
         {
             // Arrange
             Guid? guid = Guid.NewGuid();
@@ -60,7 +60,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void NullGuidIsNotEmpty_Test()
+        public void NullGuid_IsNotEmpty_Test()
         {
             // Arrange
             Guid? guid = null;
@@ -73,7 +73,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void StringIsEmpty_Test()
+        public void String_IsEmpty_Test()
         {
             // Arrange
             string str = Empty;
@@ -86,7 +86,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void StringIsNotEmpty_Test()
+        public void String_IsNotEmpty_Test()
         {
             // Arrange
             string str = "string";
@@ -99,7 +99,7 @@ namespace Validators.Tests
         }
         
         [Fact]
-        public void NullStringIsNotEmpty_Test()
+        public void NullString_IsNotEmpty_Test()
         {
             // Arrange
             string? str = null;

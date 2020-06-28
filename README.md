@@ -1,8 +1,6 @@
 # Throw.If
 
-Guard clause .NET library.
-
-Supports C# 8.0 [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references).
+A high-performance validation library with support of C# 8.0 [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references).
 
 ## Use
 
