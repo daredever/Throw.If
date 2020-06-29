@@ -11,9 +11,11 @@ Throw.Exception<ArgumentNullExceptionFactory>()
     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull);
 
-Throw.Exception(new ValidationExceptionFactory())
+Throw.Exception<ArgumentExceptionFactory>()
     .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
-    .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA)
+    .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA);
+
+Throw.Exception(new ValidationExceptionFactory())
     .If(condition: text.IsEmpty(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeEmpty)
     .If(condition: text.Length > 10, message: $"{nameof(text.Length)} is not valid")
     .If(condition: text.Length < 100, messageTemplate: () => $"{nameof(text.Length)} is not valid");
@@ -48,7 +50,9 @@ using static ThrowIf.MessageTemplates;
 
 Throw.Exception<CustomExceptionFactory>()
     .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
-    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
+    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull);
+
+Throw.Exception(message => new CustomException(message))
     .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
 
 public sealed class CustomExceptionFactory : IExceptionFactory
