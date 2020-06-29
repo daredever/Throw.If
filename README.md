@@ -83,3 +83,28 @@ public sealed class TextValidator : IConditionGroup<string>
 }
 ```
 
+To add new checks write new extensions (impossible to use nullable reference types attributes):
+
+```c#
+using ThrowIf;
+
+Throw.Exception<ArgumentExceptionFactory>()
+    .IfNull(value: text, name: nameof(text))
+    .IfEmpty(value: text, name: nameof(text));
+
+public static class ThrowExtensions
+{
+    public static ref readonly ThrowContext IfNull<T>(this in ThrowContext context,
+        T? value, string name) where T : class
+    {
+        return ref context.If(value.IsNull(), name, MessageTemplates.CanNotBeNull);
+    }
+
+    public static ref readonly ThrowContext IfEmpty(this in ThrowContext context,
+        string value, string name)
+    {
+        return ref context.If(value.IsEmpty(), name, MessageTemplates.CanNotBeEmpty);
+    }
+}
+```
+
