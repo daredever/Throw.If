@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using ThrowIf;
 using Xunit;
 
 namespace ThrowIf.Tests

@@ -1,4 +1,3 @@
-using ThrowIf;
 using Xunit;
 
 namespace ThrowIf.Tests
