@@ -7,7 +7,7 @@ namespace ThrowIf
     /// </summary>
     public readonly struct ThrowContext
     {
-        public static ThrowContext Create(Func<string, Exception> exceptionFactory)
+        internal static ThrowContext Create(Func<string, Exception> exceptionFactory)
         {
             return new ThrowContext(exceptionFactory);
         }
