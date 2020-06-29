@@ -33,8 +33,7 @@ namespace ThrowIf
         /// <typeparam name="TFactory">Exception factory type (<see cref="IExceptionFactory"/>)</typeparam>
         public static ThrowContext Exception<TFactory>() where TFactory : class, IExceptionFactory, new()
         {
-            var exceptionFactory = new TFactory();
-            return ThrowContext.Create(exceptionFactory);
+            return ThrowContext.Create<TFactory>();
         }
 
         /// <summary>
