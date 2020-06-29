@@ -15,7 +15,7 @@ namespace Extensions
             try
             {
                 Throw.Exception<ArgumentExceptionFactory>()
-                    .IfNull(value: text, name: nameof(text))
+                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
                     .IfEmpty(value: text, name: nameof(text));
 
                 PrintMessage(text);
