@@ -66,12 +66,12 @@ public sealed class TextValidator : IConditionGroup<string>
 }
 ```
 
-To add new checks extend ThrowContext with extension (impossible to use nullable reference types attributes in some cases):
+To add new methods extend ThrowContext with extension (impossible to use nullable reference types attributes in some cases):
 
 ```c#
 using ThrowIf;
 
-Throw.Exception<ArgumentExceptionFactory>()
+Throw.ArgumentException()
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
     .IfEmpty(value: text, name: nameof(text));
 
