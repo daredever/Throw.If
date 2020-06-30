@@ -1,4 +1,4 @@
-﻿using System;
+﻿using BenchmarkDotNet.Running;
 
 namespace ThrowIf.Benchmarks
 {
@@ -6,6 +6,7 @@ namespace ThrowIf.Benchmarks
     {
         static void Main(string[] args)
         {
+            BenchmarkRunner.Run<BaseCompare>();
         }
     }
 }

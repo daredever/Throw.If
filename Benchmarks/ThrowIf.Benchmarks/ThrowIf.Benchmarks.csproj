@@ -9,4 +9,8 @@
       <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\src\ThrowIf\ThrowIf.csproj" />
+    </ItemGroup>
+
 </Project>
