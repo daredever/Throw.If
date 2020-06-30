@@ -7,30 +7,21 @@ A high-performance validation library with support of C# 8.0 [nullable reference
 ```c#
 using ThrowIf;
 
-Throw.Exception<ArgumentNullExceptionFactory>()
-    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeNull)
-    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull);
+Throw.ArgumentNullException()
+    .If(guid.IsNull(), nameof(guid))
+    .If(text.IsNull(), nameof(text));
 
-Throw.Exception<ArgumentExceptionFactory>()
-    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty)
-    .If(condition: guid.Value.ToString().StartsWith("A"), name: nameof(guid), messageTemplate: CanNotStartsWithCharA);
-
-Throw.Exception(new ValidationExceptionFactory())
-    .If(condition: text.IsEmpty(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeEmpty)
-    .If(condition: text.Length > 10, message: $"{nameof(text.Length)} is not valid")
-    .If(condition: text.Length < 100, messageTemplate: () => $"{nameof(text.Length)} is not valid");
-              
-Throw.Exception(message => new ArgumentException(message))
-    .If(condition: guid.IsEmpty(), name: nameof(guid), messageTemplate: MessageTemplates.CanNotBeEmpty);
-
-private static readonly Func<string, string> CanNotStartsWithCharA =
-    name => $"{name} can not start with char 'A'";
+Throw.ArgumentException(name => $"Invalid argument '{name}'")
+    .If(text.IsEmpty(), nameof(text))
+    .If(text.Length > 1, nameof(text.Length))
+    .If(guid.IsEmpty(), nameof(guid));
 ```
 
-Default factories for exceptions:
-- ArgumentException
+Default exceptions:
 - ArgumentNullException
+- ArgumentException
 - ValidationException
+- InvalidOperationException
 
 Default validators:
 - IsNull()
@@ -39,35 +30,27 @@ Default validators:
 Default message templates:
 - _$"{name} can not be null"_
 - _$"{name} can not be empty"_
+- _$"{name} is not valid"_
 
 ## Extend
 
-To use any other exception there is an IExceptionFactory interface:
+To use any other exception define factory:
 
 ```c#
 using ThrowIf;
-using static ThrowIf.MessageTemplates;
 
-Throw.Exception<CustomExceptionFactory>()
-    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
-    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull);
-
-Throw.Exception(message => new CustomException(message))
-    .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
-
-public sealed class CustomExceptionFactory : IExceptionFactory
-{
-    public Exception CreateInstance(string message) => new CustomException(message);
-}
+Throw.Exception((name, message) => new CustomException(message), name => $"Wrong parameter '{name}'")
+    .If(text.IsNull() || text.StartsWith('A'), nameof(text))
+    .If(text.Length < 100, nameof(text.Length), name => $"{name} is too small");
 ```
 
-To reduce the amount of code there is an IConditionGroup interface:
+To reduce the amount of code implement an IConditionGroup interface:
 
 ```c#
 using ThrowIf;
 using static ThrowIf.MessageTemplates;
 
-Throw.Exception<ArgumentExceptionFactory>()
+Throw.ArgumentException()
     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
     .If(conditionGroup: new TextValidator(), value: text);
 
@@ -76,14 +59,14 @@ public sealed class TextValidator : IConditionGroup<string>
     public void Verify(in ThrowContext context, string text)
     {
         context
-            .If(text.Length < 100, $"{nameof(text.Length)} can not be less than 100")
-            .If(text.StartsWith("A"), $"{nameof(text)} can not start with char 'A'")
-            .If(text.EndsWith("B"), $"{nameof(text)} can not end with char 'B'");
+            .If(text.Length < 100, nameof(text.Length), name => $"{name} can not be less than 100")
+            .If(text.StartsWith('A'), nameof(text), name => $"{name} can not start with char 'A'")
+            .If(text.EndsWith('B'), nameof(text), name => $"{name} can not end with char 'B'");
     }
 }
 ```
 
-To add new checks write new extensions (impossible to use nullable reference types attributes in some cases):
+To add new checks extend ThrowContext with extension (impossible to use nullable reference types attributes in some cases):
 
 ```c#
 using ThrowIf;

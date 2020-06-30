@@ -19,7 +19,7 @@ namespace Validators.Tests
             // Assert
             Assert.True(isEmpty);
         }
-        
+
         [Fact]
         public void Guid_IsNotEmpty_Test()
         {
@@ -32,7 +32,7 @@ namespace Validators.Tests
             // Assert
             Assert.False(isEmpty);
         }
-        
+
         [Fact]
         public void NullableGuid_IsEmpty_Test()
         {
@@ -45,7 +45,7 @@ namespace Validators.Tests
             // Assert
             Assert.True(isEmpty);
         }
-        
+
         [Fact]
         public void NullableGuid_IsNotEmpty_Test()
         {
@@ -58,7 +58,7 @@ namespace Validators.Tests
             // Assert
             Assert.False(isEmpty);
         }
-        
+
         [Fact]
         public void NullGuid_IsNotEmpty_Test()
         {
@@ -71,7 +71,7 @@ namespace Validators.Tests
             // Assert
             Assert.False(isEmpty);
         }
-        
+
         [Fact]
         public void String_IsEmpty_Test()
         {
@@ -84,7 +84,7 @@ namespace Validators.Tests
             // Assert
             Assert.True(isEmpty);
         }
-        
+
         [Fact]
         public void String_IsNotEmpty_Test()
         {
@@ -97,7 +97,7 @@ namespace Validators.Tests
             // Assert
             Assert.False(isEmpty);
         }
-        
+
         [Fact]
         public void NullString_IsNotEmpty_Test()
         {

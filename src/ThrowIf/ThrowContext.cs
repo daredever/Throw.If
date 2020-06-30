@@ -7,30 +7,22 @@ namespace ThrowIf
     /// </summary>
     public readonly struct ThrowContext
     {
-        internal static ThrowContext Create(Func<string, Exception> exceptionFactory)
+        internal static ThrowContext Create(
+            Func<string, string, Exception> exceptionFactory,
+            Func<string, string> messageTemplate)
         {
-            return new ThrowContext(exceptionFactory);
+            return new ThrowContext(exceptionFactory, messageTemplate);
         }
 
-        internal static ThrowContext Create(IExceptionFactory exceptionFactory)
-        {
-            return new ThrowContext(message => exceptionFactory.CreateInstance(message));
-        }
-
-        internal static ThrowContext Create<TFactory>() where TFactory : class, IExceptionFactory, new()
-        {
-            return new ThrowContext(message =>
-            {
-                var exceptionFactory = new TFactory();
-                return exceptionFactory.CreateInstance(message);
-            });
-        }
-
-        private ThrowContext(Func<string, Exception> exceptionFactory)
+        private ThrowContext(
+            Func<string, string, Exception> exceptionFactory,
+            Func<string, string> messageTemplate)
         {
             ExceptionFactory = exceptionFactory;
+            MessageTemplate = messageTemplate;
         }
 
-        internal Func<string, Exception> ExceptionFactory { get; }
+        internal Func<string, string, Exception> ExceptionFactory { get; }
+        internal Func<string, string> MessageTemplate { get; }
     }
 }

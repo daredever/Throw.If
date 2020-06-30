@@ -8,17 +8,16 @@ namespace CustomException
     {
         static void Main(string[] args)
         {
-            Verify("msg", Guid.Empty);
+            Verify("msg");
         }
 
-        private static void Verify(string? text, Guid? guid)
+        private static void Verify(string? text)
         {
             try
             {
-                Throw.Exception<CustomExceptionFactory>()
-                    .If(condition: guid.IsNull(), name: nameof(guid), messageTemplate: CanNotBeNull)
-                    .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
-                    .If(condition: text.Length < 10, message: $"{nameof(text.Length)} is not valid");
+                Throw.Exception((name, message) => new CustomException(message), name => $"Wrong parameter '{name}'")
+                    .If(text.IsNull() || text.StartsWith('A'), nameof(text))
+                    .If(text.Length < 100, nameof(text.Length), name => $"{name} is too small");
 
                 PrintMessage(text);
             }

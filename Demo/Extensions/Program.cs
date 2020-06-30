@@ -7,14 +7,14 @@ namespace Extensions
     {
         static void Main(string[] args)
         {
-            Verify(text: "msg");
+            Verify(text: string.Empty);
         }
 
         private static void Verify(string? text)
         {
             try
             {
-                Throw.Exception<ArgumentExceptionFactory>()
+                Throw.ArgumentException()
                     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: MessageTemplates.CanNotBeNull)
                     .IfEmpty(value: text, name: nameof(text));
 

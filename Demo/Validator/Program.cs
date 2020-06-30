@@ -15,7 +15,7 @@ namespace Validator
         {
             try
             {
-                Throw.Exception<ArgumentExceptionFactory>()
+                Throw.ArgumentException()
                     .If(condition: text.IsNull(), name: nameof(text), messageTemplate: CanNotBeNull)
                     .If(conditionGroup: new TextValidator(), value: text);
 

@@ -19,7 +19,7 @@ namespace ThrowIf.Tests
             // Assert
             Assert.Equal(expectedMessage, messageFromTemplate);
         }
-        
+
         [Theory]
         [InlineData("name")]
         [InlineData("name2")]
@@ -31,6 +31,22 @@ namespace ThrowIf.Tests
 
             // Act
             var messageFromTemplate = MessageTemplates.CanNotBeEmpty(name);
+
+            // Assert
+            Assert.Equal(expectedMessage, messageFromTemplate);
+        }
+
+        [Theory]
+        [InlineData("name")]
+        [InlineData("name2")]
+        [InlineData("name3")]
+        public void IsNotValid_Test(string name)
+        {
+            // Arrange
+            var expectedMessage = $"{name} is not valid";
+
+            // Act
+            var messageFromTemplate = MessageTemplates.IsNotValid(name);
 
             // Assert
             Assert.Equal(expectedMessage, messageFromTemplate);

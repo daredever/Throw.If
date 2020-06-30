@@ -17,7 +17,7 @@ namespace Validators.Tests
             // Assert
             Assert.True(isNull);
         }
-        
+
         [Fact]
         public void String_IsNotNull_Test()
         {
@@ -30,7 +30,7 @@ namespace Validators.Tests
             // Assert
             Assert.False(isNull);
         }
-        
+
         [Fact]
         public void Int_IsNull_Test()
         {
@@ -43,7 +43,7 @@ namespace Validators.Tests
             // Assert
             Assert.True(isNull);
         }
-        
+
         [Fact]
         public void Int_IsNotNull_Test()
         {

@@ -8,6 +8,13 @@ namespace ThrowIf
     public static class MessageTemplates
     {
         /// <summary>
+        /// Template for message $"{name} is not valid".
+        /// </summary>
+        /// <returns>Message</returns>
+        public static readonly Func<string, string> IsNotValid =
+            name => $"{name} is not valid";
+
+        /// <summary>
         /// Template for message $"{name} can not be null".
         /// </summary>
         /// <returns>Message</returns>
