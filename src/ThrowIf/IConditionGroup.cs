@@ -3,7 +3,7 @@
     /// <summary>
     /// Conditions group.
     /// </summary>
-    public interface IConditionGroup<in T>
+    public interface IConditionGroup<in T> where T : notnull
     {
         /// <summary>
         /// Verifies value by conditions with <see cref="ThrowContext"/>.

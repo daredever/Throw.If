@@ -32,7 +32,7 @@ namespace ThrowIf
         /// <param name="conditionGroup">Conditions group</param>
         /// <param name="value">Value for verifying</param>
         public static ref readonly ThrowContext If<T>(this in ThrowContext context,
-            IConditionGroup<T> conditionGroup, T value)
+            IConditionGroup<T> conditionGroup, T value) where T : notnull
         {
             conditionGroup.Verify(context, value);
             return ref context;
