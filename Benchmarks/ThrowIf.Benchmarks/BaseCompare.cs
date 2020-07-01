@@ -16,8 +16,34 @@ namespace ThrowIf.Benchmarks
             {
                 if (Condition)
                 {
-                    throw new Exception($"{nameof(BaseCompare)} is not valid");
+                    throw new Exception(nameof(BaseCompare) + " is not valid");
                 }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+        }
+
+        [Benchmark]
+        public void ExplicitStaticMethodIf()
+        {
+            try
+            {
+                ThrowTest.If(Condition, nameof(BaseCompare));
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+        }
+
+        [Benchmark]
+        public void ExplicitStaticMethodIfWithTemplate()
+        {
+            try
+            {
+                ThrowTest.If(Condition, () => $"{nameof(BaseCompare)} is not valid");
             }
             catch (Exception e)
             {
@@ -46,6 +72,20 @@ namespace ThrowIf.Benchmarks
             {
                 Throw.Exception((name, message) => new Exception(message))
                     .If(Condition, nameof(BaseCompare), name => $"{name} is not valid");
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
+        }
+        
+        [Benchmark]
+        public void InlineMessageTemplateWithoutStringFormat()
+        {
+            try
+            {
+                Throw.Exception((name, message) => new Exception(message))
+                    .If(Condition, nameof(BaseCompare), name => name + " is not valid");
             }
             catch (Exception e)
             {

@@ -7,6 +7,7 @@ namespace ThrowIf.Benchmarks
         static void Main(string[] args)
         {
             BenchmarkRunner.Run<BaseCompare>();
+            BenchmarkRunner.Run<GuardCompare>();
         }
     }
 }

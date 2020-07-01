@@ -3,10 +3,12 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+      <PackageReference Include="Dawn.Guard" Version="1.12.0" />
     </ItemGroup>
 
     <ItemGroup>
