@@ -20,7 +20,6 @@ Throw.ArgumentException(name => $"Invalid argument '{name}'")
 Default exceptions:
 - ArgumentNullException
 - ArgumentException
-- ValidationException
 - InvalidOperationException
 
 Default validators:

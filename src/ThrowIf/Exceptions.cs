@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace ThrowIf
 {
@@ -10,9 +9,6 @@ namespace ThrowIf
 
         internal static readonly Func<string, string, Exception> ArgumentNullExceptionFactory =
             (name, message) => new ArgumentNullException(name, message);
-
-        internal static readonly Func<string, string, Exception> ValidationExceptionFactory =
-            (name, message) => new ValidationException(message);
 
         internal static readonly Func<string, string, Exception> InvalidOperationExceptionFactory =
             (name, message) => new InvalidOperationException(message);

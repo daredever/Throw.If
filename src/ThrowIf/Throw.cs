@@ -31,16 +31,6 @@ namespace ThrowIf
         }
 
         /// <summary>
-        /// Creates throw context with ValidationException factory and defined message template. 
-        /// </summary>
-        /// <param name="messageTemplate">Message template</param>
-        public static ThrowContext ValidationException(
-            Func<string, string>? messageTemplate = null)
-        {
-            return ThrowContext.Create(ValidationExceptionFactory, messageTemplate ?? IsNotValid);
-        }
-
-        /// <summary>
         /// Creates throw context with InvalidOperationException factory and defined message template. 
         /// </summary>
         /// <param name="messageTemplate">Message template</param>
